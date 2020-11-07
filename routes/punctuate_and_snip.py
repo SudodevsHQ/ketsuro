@@ -23,17 +23,20 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
     punctuatedCaptions = punctuatedResponse.response['punctuated_texts'][0]
 
     LANGUAGE = 'english'
+
+    SENTENCE_COUNT = video['SENTENCE_COUNT'] if not video['SENTENCE_COUNT'] == None else int(len(punctuatedCaptions.split('.'))*0.2)
+    SENTENCE_COUNT = 10 if SENTENCE_COUNT > 10 else SENTENCE_COUNT
+     
     parser = PlaintextParser.from_string(punctuatedCaptions, Tokenizer(LANGUAGE))
     stemmer = Stemmer(LANGUAGE)
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(LANGUAGE)
 
     summarized_text_list = []
-    for sentence in summarizer(parser.document, 2):
+    for sentence in summarizer(parser.document, SENTENCE_COUNT):
         summarized_text_list.append(sentence._text)
     
     #TODO: update firestore with sumarized_text_list
-    regions = get_regions(summarized_text_list, video['transcript'])
-    print(regions)
+    regions = get_regions(summarized_text_list, video['transcript'], SENTENCE_COUNT)
     clip_video(video['video_id'], regions)
-    os.remove(os.path.join('videos',f"{video['video_id']}.mkv"))
+    # os.remove(os.path.join('videos',f"{video['video_id']}"))

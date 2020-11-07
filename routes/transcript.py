@@ -20,7 +20,8 @@ def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = None):
 
         ytdl_opts = {
             'outtmpl': f"videos/{video_id}",
-            'nooverwrites': True
+            'nooverwrites': True,
+            'format': '18'
         }
         with youtube_dl.YoutubeDL(ytdl_opts) as ydl:
             ydl.download([f'http://www.youtube.com/watch?v={video_id}'])
