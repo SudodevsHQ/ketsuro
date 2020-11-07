@@ -25,8 +25,7 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
     LANGUAGE = 'english'
 
     SENTENCE_COUNT = video['SENTENCE_COUNT'] if not video['SENTENCE_COUNT'] == None else int(len(punctuatedCaptions.split('.'))*0.2)
-    SENTENCE_COUNT = 10 if SENTENCE_COUNT > 10 else SENTENCE_COUNT
-     
+    print(SENTENCE_COUNT, len(punctuatedCaptions.split('.')))
     parser = PlaintextParser.from_string(punctuatedCaptions, Tokenizer(LANGUAGE))
     stemmer = Stemmer(LANGUAGE)
     summarizer = Summarizer(stemmer)

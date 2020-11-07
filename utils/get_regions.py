@@ -7,7 +7,7 @@ def get_regions(summarised_text: list, transrcipt, SENTENCE_COUNT:int):
         for t_dict in transrcipt:
             if fuzz.ratio(text, t_dict['text']) > 30:
                 regions.append(
-                    {'start': float(t_dict['start']), 'end': float(t_dict['start'] + t_dict['duration']), 'rating': fuzz.ratio(text, t_dict['text'])})
+                    {'start': round(float(t_dict['start']), 2), 'end': round(float(t_dict['start'] + t_dict['duration']), 2), 'rating': fuzz.ratio(text, t_dict['text'])})
                 print(t_dict['start'], '=>', t_dict['start'] + t_dict['duration'])
     
     score_sorted = sorted(regions,key= lambda x:x['rating'] , reverse=True) 
