@@ -10,6 +10,7 @@ from sumy.utils import get_stop_words
 
 from models.PunctuatedResponse import PunctuatedTranscript
 from utils.get_regions import get_regions
+from utils.clip import clip_video
 
 router = APIRouter()
 
@@ -28,9 +29,11 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
     summarizer.stop_words = get_stop_words(LANGUAGE)
 
     summarized_text_list = []
-    for sentence in summarizer(parser.document, 5):
+    for sentence in summarizer(parser.document, 2):
         summarized_text_list.append(sentence._text)
     
     #TODO: update firestore with sumarized_text_list
     regions = get_regions(summarized_text_list, video['transcript'])
-    # os.remove(os.path.join('videos',f"{video['video_id']}.mkv"))
+    print(regions)
+    clip_video(video['video_id'], regions)
+    os.remove(os.path.join('videos',f"{video['video_id']}.mkv"))

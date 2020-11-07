@@ -1,5 +1,4 @@
 from typing import Optional
-from test import SENTENCES_COUNT
 from fastapi import APIRouter, HTTPException
 from youtube_transcript_api import YouTubeTranscriptApi
 import youtube_dl
@@ -18,10 +17,6 @@ def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = None):
         data = YouTubeTranscriptApi.get_transcript(video_id)
         raw_transcript = ' '
         raw_transcript = raw_transcript.join([f"{info['text']}" for info in data])
-
-        raw_text = '\n'
-        raw_text = raw_text.join([f"{info['start']}: {info['text']}" for info in data])
-        print(raw_text)
 
         ytdl_opts = {
             'outtmpl': f"videos/{video_id}",
