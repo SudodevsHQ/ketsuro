@@ -11,7 +11,7 @@ from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
 LANGUAGE = "english"
-SENTENCES_COUNT = 3
+SENTENCES_COUNT = 4
 # vid_id = '5tQLFon8Yhk'
 
 # data = YouTubeTranscriptApi.get_transcript(vid_id)
