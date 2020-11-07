@@ -6,7 +6,7 @@ import youtube_dl
 import json
 
 
-from utils import punctuate
+from utils.punctuate import punctuate
 from tinydb import TinyDB, Query
 
 router = APIRouter()
@@ -18,7 +18,6 @@ def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = None):
         data = YouTubeTranscriptApi.get_transcript(video_id)
         raw_transcript = ' '
         raw_transcript = raw_transcript.join([f"{info['text']}" for info in data])
-
 
         raw_text = '\n'
         raw_text = raw_text.join([f"{info['start']}: {info['text']}" for info in data])
@@ -35,7 +34,7 @@ def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = None):
         response = json.loads(response.text)
         
         db = TinyDB('db.json')
-        db.insert({'request_id': response['request_id'], 'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT})
+        db.insert({'request_id': response['request_id'], 'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data})
         return response
     
     except Exception as e:

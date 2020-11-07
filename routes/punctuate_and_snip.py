@@ -4,11 +4,12 @@ import os
 
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lsa import LsaSummarizer as Summarizer
+from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
 from models.PunctuatedResponse import PunctuatedTranscript
+from utils.get_regions import get_regions
 
 router = APIRouter()
 
@@ -26,8 +27,10 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
     summarizer = Summarizer(stemmer)
     summarizer.stop_words = get_stop_words(LANGUAGE)
 
+    summarized_text_list = []
     for sentence in summarizer(parser.document, 5):
-        print(sentence)
-
+        summarized_text_list.append(sentence._text)
+    
+    #TODO: update firestore with sumarized_text_list
+    regions = get_regions(summarized_text_list, video['transcript'])
     # os.remove(os.path.join('videos',f"{video['video_id']}.mkv"))
-    # print(punctuatedResponse.response)
