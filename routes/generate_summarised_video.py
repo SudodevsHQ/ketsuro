@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get('/summarize/{video_id}')
-async def generateVideo(video_id: str, request_id: str, SENTENCE_COUNT: Optional[int] = None):
+async def generateVideo(video_id: str, request_id: str):
     try:
         ytdl_opts = {
             'outtmpl': f"videos/{video_id}",
@@ -27,10 +27,14 @@ async def generateVideo(video_id: str, request_id: str, SENTENCE_COUNT: Optional
         Videos = Query()
         
         transcript = db.search(Videos.request_id == request_id)[0]['transcript']
+        SENTENCE_COUNT = db.search(Videos.request_id == request_id)[0]['SENTENCE_COUNT']
+        
         video = Video.collection.filter('video_id', '==', video_id).get()
         summarized_text_list = video.summary.split('.')
-        
-        SENTENCE_COUNT = SENTENCE_COUNT if not SENTENCE_COUNT == None else int(len(summarized_text_list)*0.2)
+
+
+        SENTENCE_COUNT =  int(len(video.punctuatedCaptions)*0.2)
+  
 
         regions = get_regions(summarized_text_list, transcript, SENTENCE_COUNT)
         await clip_video(video_id, regions)
