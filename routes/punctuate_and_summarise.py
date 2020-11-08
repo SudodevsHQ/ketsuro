@@ -36,5 +36,5 @@ async def punctuateAndSummarise(punctuatedResponse: PunctuatedTranscript):
     for sentence in summarizer(parser.document, SENTENCE_COUNT):
         summarized_text_list.append(sentence._text)
 
-    upload_summary(video['video_id'], ' '.join(summarized_text_list), video['request_id'])    
+    await upload_summary(video['video_id'], ' '.join(summarized_text_list), video['request_id'])    
 
