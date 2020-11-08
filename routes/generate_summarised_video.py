@@ -5,7 +5,7 @@ from tinydb import TinyDB, Query
 
 from utils.get_regions import get_regions
 from utils.clip import clip_video
-from utils.file_upload import upload_file
+# from utils.file_upload import upload_file
 from utils.upload_summary import update_summarized_video
 from utils.upload_summary import upload_summary
 from models.video_model import Video
@@ -35,8 +35,8 @@ async def generateVideo(video_id: str, request_id: str, SENTENCE_COUNT: Optional
 
         regions = get_regions(summarized_text_list, transcript, SENTENCE_COUNT)
         await clip_video(video_id, regions)
-        uploaded_url = await upload_file(f"clipped/{video_id}.mp4")
-        await update_summarized_video(video_id, uploaded_url)
+        # uploaded_url = await upload_file(f"clipped/{video_id}.mp4")
+        await update_summarized_video(video_id, 'ok')
 
         # os.remove(os.path.join('videos',f"{video['video_id']}"))        
         return True

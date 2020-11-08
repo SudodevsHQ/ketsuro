@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
 import fireo
 from fireo.database import db
 
@@ -6,6 +7,8 @@ from routes import transcript, punctuate_and_summarise, generate_summarised_vide
 
 app = FastAPI()
 
+#Static Files
+app.mount('/static', StaticFiles(directory="clipped"), name="static")
 
 @app.middleware("http")
 async def dispatch(request: Request, call_next):
