@@ -1,4 +1,5 @@
-autopep8==1.5.4
+aiofiles==0.6.0
+asyncio==3.4.3
 breadability==0.1.20
 cached-property==1.5.2
 cachetools==4.1.1
@@ -32,7 +33,6 @@ proglog==0.1.9
 protobuf==3.13.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-pycodestyle==2.6.0
 pycountry==20.7.3
 pydantic==1.7.2
 python-dotenv==0.15.0
@@ -47,7 +47,6 @@ standardjson==0.3.1
 starlette==0.13.6
 sumy==0.8.1
 tinydb==4.2.0
-toml==0.10.2
 tqdm==4.51.0
 urllib3==1.25.11
 uvicorn==0.12.2
