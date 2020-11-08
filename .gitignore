@@ -109,7 +109,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -128,5 +127,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
-models/
+videos
+test.py
+db.json
+clipped
+ketsuro-69-firebase-adminsdk-aqsts-af77273ea3.json
