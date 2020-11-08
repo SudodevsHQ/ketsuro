@@ -3,6 +3,6 @@ from fireo.models import Model
 from fireo.fields import TextField
 
 class Video(Model):
-    yt_url = TextField()
+    video_id = TextField()
     summary = TextField()
     summary_video = TextField()

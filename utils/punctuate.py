@@ -9,7 +9,7 @@ base_url = "https://proxy.api.deepaffects.com/text/generic/api/v1/async/punctuat
 def punctuate(text: str):
     querystring= {
         "apikey": env.str('DEEPAFFECTS_API_KEY'),
-        "webhook": "http://3aa95cce7cc0.ngrok.io/webhook"
+        "webhook": "http://621e47ca71ab.ngrok.io/webhook"
     }
 
     payload = {

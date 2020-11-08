@@ -22,7 +22,7 @@ def cure_repetition(regions):
             cured.append(region)
         else:
             last = cured[-1]
-            if last['end'] > region['start']:
+            if last['end'] >= region['start']:
                  last['end'] = region['end'] 
                  cured[-1] = last
             else:
