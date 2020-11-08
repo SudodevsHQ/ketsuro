@@ -6,6 +6,11 @@ cd to `ketsuro/` and create a virtual environment
 ```
 python -m venv env
 ```
+activate the virtual environment
+```
+source env/bin/activate
+```
+
 then
 ```
 pip install -r requirements.txt
