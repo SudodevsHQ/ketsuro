@@ -1,4 +1,4 @@
-# ketsuro
+# ketsuro-backend
 Submission for Hackout 2020
 
 ## Installation 
