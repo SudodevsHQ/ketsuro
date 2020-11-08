@@ -7,7 +7,6 @@ from utils.get_regions import get_regions
 from utils.clip import clip_video
 # from utils.file_upload import upload_file
 from utils.upload_summary import update_summarized_video
-from utils.upload_summary import upload_summary
 from models.video_model import Video
 
 router = APIRouter()
@@ -43,6 +42,5 @@ async def generateVideo(video_id: str, request_id: str, SENTENCE_COUNT: Optional
     
     except Exception as e:
         print(e)
-        upload_summary(video_id, 'TRANSCRIPT_NOT_FOUND')    
         raise HTTPException(status_code=500, detail={'code': 'VIDEO_ERROR', 'message': 'There was an error generating the video'})
         
