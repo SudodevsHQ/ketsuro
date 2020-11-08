@@ -8,16 +8,13 @@ from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
 from models.PunctuatedResponse import PunctuatedTranscript
-from utils.get_regions import get_regions
-from utils.clip import clip_video
-from utils.file_upload import upload_file
-from utils.upload_summary import upload_summary, update_summarized_video
+from utils.upload_summary import upload_summary
 
 router = APIRouter()
 
 
 @router.post('/webhook')
-def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
+async def punctuateAndSummarise(punctuatedResponse: PunctuatedTranscript):
     db = TinyDB('db.json')
     Videos = Query()
     video = db.search(Videos.request_id == punctuatedResponse.request_id)[0]
@@ -39,17 +36,5 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
     for sentence in summarizer(parser.document, SENTENCE_COUNT):
         summarized_text_list.append(sentence._text)
 
-    upload_summary(video['video_id'], ' '.join(summarized_text_list))    
+    upload_summary(video['video_id'], ' '.join(summarized_text_list), video['request_id'])    
 
-    regions = get_regions(summarized_text_list,
-                          video['transcript'], SENTENCE_COUNT)
-    clip_video(video['video_id'], regions)
-
-    uploaded_url = upload_file(f"clipped/{video['video_id']}.mp4")
-
-    update_summarized_video(video['video_id'], uploaded_url)
-    # os.remove(os.path.join('videos',f"{video['video_id']}"))
-
-@router.get('/test/{video_id}')
-def test(video_id):
-    upload_summary(video_id, ' '.join(['hello', 'nigger', 'bigger']))

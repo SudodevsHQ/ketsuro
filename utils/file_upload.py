@@ -10,7 +10,7 @@ def get_best_upload_server():
     return server
 
 
-def upload_file(filepath):
+async def upload_file(filepath):
     server = get_best_upload_server()
     mp_encoder = MultipartEncoder(
         fields={
@@ -22,7 +22,6 @@ def upload_file(filepath):
         data=mp_encoder,
         headers={'Content-Type': mp_encoder.content_type}
     )
-    print(r)
     scrap = r.json()
     Token = scrap['data']['code']
 

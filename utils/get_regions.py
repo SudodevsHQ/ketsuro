@@ -8,11 +8,9 @@ def get_regions(summarised_text: list, transrcipt, SENTENCE_COUNT:int):
             if fuzz.ratio(text, t_dict['text']) > 30:
                 regions.append(
                     {'start': round(float(t_dict['start']), 2), 'end': round(float(t_dict['start'] + t_dict['duration']), 2), 'rating': fuzz.ratio(text, t_dict['text'])})
-                print(t_dict['start'], '=>', t_dict['start'] + t_dict['duration'])
     
     score_sorted = sorted(regions,key= lambda x:x['rating'] , reverse=True) 
     sorted_regions = sorted(score_sorted[:SENTENCE_COUNT],key= lambda x:x['start'])
-    print(cure_repetition(sorted_regions))
     return cure_repetition(sorted_regions)
 
 def cure_repetition(regions):

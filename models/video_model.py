@@ -6,3 +6,4 @@ class Video(Model):
     video_id = TextField()
     summary = TextField()
     summary_video = TextField()
+    request_id = TextField()
