@@ -5,6 +5,7 @@ import json
 
 from utils.punctuate import punctuate
 from tinydb import TinyDB
+from utils.punctuate_local import punctuate_locally
 
 router = APIRouter()
 
@@ -17,6 +18,7 @@ async def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = Non
 
         response = await punctuate(raw_transcript)
         response = json.loads(response.text)
+        punctuate_locally(raw_transcript, response['request_id'])
         
         db = TinyDB('db.json')
         db.insert({'request_id': response['request_id'], 'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data})

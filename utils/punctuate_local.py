@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from punctuator import Punctuator
 from tinydb import TinyDB, Query
 
 from sumy.parsers.plaintext import PlaintextParser
@@ -7,19 +7,16 @@ from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
-from models.PunctuatedResponse import PunctuatedTranscript
 from utils.upload_summary import upload_summary
-from utils.punctuate_local import punctuate_locally
-
-router = APIRouter()
 
 
-async def punctuateAndSummarise(punctuatedResponse: PunctuatedTranscript):
+
+def punctuate_locally(text, request_id):
     db = TinyDB('db.json')
     Videos = Query()
-    video = db.search(Videos.request_id == punctuatedResponse.request_id)[0]
-
-    punctuatedCaptions = punctuate_locally()
+    video = db.search(Videos.request_id == request_id)[0]
+    p = Punctuator('model.pcl')
+    punctuatedCaptions = p.punctuate(text)
 
     LANGUAGE = 'english'
 
@@ -36,5 +33,7 @@ async def punctuateAndSummarise(punctuatedResponse: PunctuatedTranscript):
     for sentence in summarizer(parser.document, SENTENCE_COUNT):
         summarized_text_list.append(sentence._text)
 
-    upload_summary(video['video_id'], ' '.join(summarized_text_list), video['request_id'])    
+    upload_summary(video['video_id'], ' '.join(
+        summarized_text_list), video['request_id'])
 
+    return True
