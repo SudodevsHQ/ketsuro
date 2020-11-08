@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from tinydb import TinyDB, Query
-import os
 
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
@@ -44,6 +43,7 @@ def punctuateAndSnip(punctuatedResponse: PunctuatedTranscript):
                           video['transcript'], SENTENCE_COUNT)
     clip_video(video['video_id'], regions)
 
-    upload_file(f"clipped/{video['video_id']}.mp4")
+    uploaded_url = upload_file(f"clipped/{video['video_id']}.mp4")
+
 
     # os.remove(os.path.join('videos',f"{video['video_id']}"))
