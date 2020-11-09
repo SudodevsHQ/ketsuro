@@ -1,6 +1,8 @@
 # ketsuro-backend
 Submission for Hackout 2020
 
+[Ketsuro Client](https://github.com/sudodevsHQ/ketsuro-client)
+
 ## Installation 
 cd to `ketsuro/` and create a virtual environment
 ```
