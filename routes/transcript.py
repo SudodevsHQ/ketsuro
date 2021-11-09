@@ -18,11 +18,11 @@ async def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = Non
 
         # response = await punctuate(raw_transcript)
         # response = json.loads(response.text)
-        punctuate_locally(raw_transcript, video_id)
+        punctuated_captions = punctuate_locally(raw_transcript)
         
-        # db = TinyDB('db.json')
-        # db.insert({'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data})
-        # return response
+        db = TinyDB('db.json')
+        db.insert({'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data, 'punctuated_captions' : punctuated_captions })
+        return 
     
     except Exception as e:
         print(e)
