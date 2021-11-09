@@ -11,18 +11,22 @@ from utils.upload_summary import upload_summary
 
 
 
-def punctuate_locally(text, request_id):
-    db = TinyDB('db.json')
-    Videos = Query()
-    video = db.search(Videos.request_id == request_id)[0]
+def punctuate_locally(text, video_id):
+    # db = TinyDB('db.json')
+    # Videos = Query()
+    # video = db.fastsearch(Videos.video_id == video_id)[0]
+    print('Loading model')
     p = Punctuator('model.pcl')
+    print('Model loaded\nPunctuating')
     punctuatedCaptions = p.punctuate(text)
-
+    print(punctuatedCaptions)
     LANGUAGE = 'english'
 
-    SENTENCE_COUNT = video['SENTENCE_COUNT'] if not video['SENTENCE_COUNT'] == None else int(
-        len(punctuatedCaptions.split('.'))*0.2)
+    # SENTENCE_COUNT = video['SENTENCE_COUNT'] if not video['SENTENCE_COUNT'] == None else int(
+    #     len(punctuatedCaptions.split('.'))*0.2)
 
+    SENTENCE_COUNT = 5
+    
     parser = PlaintextParser.from_string(
         punctuatedCaptions, Tokenizer(LANGUAGE))
     stemmer = Stemmer(LANGUAGE)
@@ -33,7 +37,8 @@ def punctuate_locally(text, request_id):
     for sentence in summarizer(parser.document, SENTENCE_COUNT):
         summarized_text_list.append(sentence._text)
 
-    upload_summary(video['video_id'], ' '.join(
-        summarized_text_list), video['request_id'])
+    print('Summarized', summarized_text_list)
+    upload_summary(video_id, ' '.join(
+        summarized_text_list), video_id)
 
     return True

@@ -16,13 +16,13 @@ async def generate_transcript(video_id: str, SENTENCE_COUNT: Optional[int] = Non
         raw_transcript = ' '
         raw_transcript = raw_transcript.join([f"{info['text']}" for info in data])
 
-        response = await punctuate(raw_transcript)
-        response = json.loads(response.text)
-        punctuate_locally(raw_transcript, response['request_id'])
+        # response = await punctuate(raw_transcript)
+        # response = json.loads(response.text)
+        punctuate_locally(raw_transcript, video_id)
         
-        db = TinyDB('db.json')
-        db.insert({'request_id': response['request_id'], 'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data})
-        return response
+        # db = TinyDB('db.json')
+        # db.insert({'video_id': video_id, 'SENTENCE_COUNT': SENTENCE_COUNT, 'transcript': data})
+        # return response
     
     except Exception as e:
         print(e)
