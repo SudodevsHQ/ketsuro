@@ -1,15 +1,15 @@
 from punctuator import Punctuator
-from tinydb import TinyDB, Query
+# from tinydb import TinyDB, Query
 
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
-from sumy.nlp.stemmers import Stemmer
-from sumy.utils import get_stop_words
-from utils.get_regions import get_regions
+# from sumy.parsers.plaintext import PlaintextParser
+# from sumy.nlp.tokenizers import Tokenizer
+# from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
+# from sumy.nlp.stemmers import Stemmer
+# from sumy.utils import get_stop_words
+# from utils.get_regions import get_regions
 
-from utils.clip import clip_video
-from utils.upload_summary import upload_summary, update_summarized_video
+# from utils.clip import clip_video
+# from utils.upload_summary import upload_summary, update_summarized_video
 
 
 
@@ -21,9 +21,9 @@ def punctuate_locally(text):
     # db = TinyDB('db.json')    
     # Videos = Query()
     # video = db.fastsearch(Videos.video_id == video_id)[0]
-    print('Loading model')
+    print('\n[INFO]: Loading model...\n')
     p = Punctuator('model-euro.pcl')
-    print('Model loaded\nPunctuating')
+    print('[SUCCESS]: Model loaded\n\n[INFO]: Punctuating\n')
     punctuatedCaptions = p.punctuate(text)
     
     return punctuatedCaptions
