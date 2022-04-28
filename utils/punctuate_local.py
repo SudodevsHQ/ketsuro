@@ -17,12 +17,12 @@ from utils.upload_summary import upload_summary
 
 
 
-def punctuate_locally(text):
+p = Punctuator('model-euro.pcl')
+async def punctuate_locally(text):
     # db = TinyDB('db.json')    
     # Videos = Query()
     # video = db.fastsearch(Videos.video_id == video_id)[0]
     print('\n[INFO]: Loading model...\n')
-    p = Punctuator('model-euro.pcl')
     print('[SUCCESS]: Model loaded\n\n[INFO]: Punctuating\n')
     punctuatedCaptions = p.punctuate(text)
     

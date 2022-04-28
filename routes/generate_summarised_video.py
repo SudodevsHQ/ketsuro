@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from typing import Optional
-import youtube_dl
+from youtube_dlp import YoutubeDL
 from tinydb import TinyDB, Query
 
 from utils.get_regions import get_regions

@@ -1,7 +1,7 @@
 from models.video_model import Video
 
 
-def upload_summary(video_id, summary, request_id):
+async def upload_summary(video_id, summary, request_id):
     try: 
         video = Video()
         video.video_id= video_id

@@ -23,3 +23,19 @@ async def dispatch(request: Request, call_next):
 app.include_router(transcript.router)
 app.include_router(punctuate_and_summarise.router)
 app.include_router(generate_summarised_video.router)
+
+"""
+    /video -> on client load
+        get transcritpion of video
+        upload metadata and transcript to firebase
+        initiate punctuation and summaristaion asyncronously
+            upload summary to firebase
+        
+    /summarize -> user clicks a video
+        download
+        fetch summary and metadata from firebase 
+        clipping
+        genearate clipped video in /static
+        update_summarized_video(video_id, ok)
+        
+"""

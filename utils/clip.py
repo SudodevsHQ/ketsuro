@@ -8,8 +8,8 @@ async def clip_video(video_id: str, regions):
         subclip = orignal.subclip(region['start'], region['end']+1)
         subclips.append(subclip)
     concatenate_videoclips(subclips).to_videofile(
-                f'clipped/{video_id}.mp4',
-                codec="h264",
+                f'clipped/{video_id}.mkv',
+                codec="libx264",
                 temp_audiofile="clipped/temp.m4a", remove_temp=True, audio_codec="aac")
     orignal.close()
     return True
